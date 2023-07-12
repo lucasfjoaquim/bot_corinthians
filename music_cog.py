@@ -1,7 +1,7 @@
 from ast import alias
 import discord
 from discord.ext import commands
-
+import asyncio
 from youtube_dl import YoutubeDL
 
 
@@ -122,7 +122,7 @@ class music_cog(commands.Cog):
         retval = ""
         for i in range(0, len(self.music_queue)):
             # display a max of 5 songs in the current queue
-            if (i > 4): break
+            if (i > 30): break
             retval += self.music_queue[i][0]['title'] + "\n"
 
         if retval != "":
@@ -142,3 +142,62 @@ class music_cog(commands.Cog):
         self.is_playing = False
         self.is_paused = False
         await self.vc.disconnect()
+
+    @commands.command()
+    async def torcida(self, ctx):
+        lista_de_musica = ['Sou coringao sou coringaoo', 'le leleo corinthias', 'timao eeeeee ooooo',
+                           'vai cima deles timao', 'coringao', 'eu sou corinthians de coração',
+                           'eu sou gavioes da fiel', 'bando de loucos', 'rema rema remador corithians',
+                           'vou cantar pro timao ganhar', 'vamos jogar com raça', 'minha vida corinthians',
+                           'esta noite teremos que ganhar corinthians', 'vai, corinthians',
+                           'a mare ta cheia corinthians', 'pororopopo corinthians', 'crithians para sempre',
+                           'nunca vou te abandonar corinthians', 'maloqueiro sofredor corinthians',
+                           'vou pra bahia conrinthians', 'festa na favela corinthians', 'porcada, me diz como é que é',
+                           'cade voce corinthians']
+        voice_channel = ctx.author.voice.channel
+        if voice_channel is None:
+            # you need to be connected so that the bot knows where to go
+            await ctx.send("Connect to a voice channel!")
+        elif self.is_paused:
+            self.vc.resume()
+        else:
+            for query in lista_de_musica:
+                song = self.search_yt(query)
+                if type(song) == type(True):
+                    await ctx.send(
+                        "Could not download the song. Incorrect format try another keyword. This could be due to playlist or a livestream format.")
+                else:
+                    await ctx.send(f"Baixando musica {song.get('title')}")
+                    self.music_queue.append([song, voice_channel])
+
+            await self.play_music(ctx)
+
+
+
+    """async def torcida(self, ctx):
+        # Verifica se o autor do comando está em um canal de voz
+        if ctx.author.voice is None:
+            await ctx.send("Você precisa estar em um canal de voz para usar esse comando.")
+            return
+
+        # Conecta-se ao canal de voz do autor
+        voice_channel = ctx.author.voice.channel
+        voice_client = await voice_channel.connect()
+
+        # Lista das músicas a serem tocadas
+        musicas = ["musica1.mp3", "musica2.mp3", "musica3.mp3", "musica4.mp3"]
+
+        # Loop para tocar as músicas
+        for musica in musicas:
+            # Toca a música
+            source = discord.FFmpegPCMAudio(musica, executable="D:/ffmpeg/bin/ffmpeg.exe")
+            voice_client.play(source)
+
+            # Aguarda o término da música antes de tocar a próxima
+            while voice_client.is_playing():
+                await asyncio.sleep(1)
+
+        # Desconecta-se do canal de voz após tocar todas as músicas
+        await voice_client.disconnect()"""
+
+

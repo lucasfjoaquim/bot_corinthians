@@ -4,18 +4,17 @@ from discord.ext import commands
 class help_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.help_message = "teste"
-        """
+        self.help_message = """
 ```
-General commands:
-/help - displays all the available commands
-/p <keywords> - finds the song on youtube and plays it in your current channel. Will resume playing the current song if it was paused
-/q - displays the current music queue
-/skip - skips the current song being played
-/clear - Stops the music and clears the queue
-/leave - Disconnected the bot from the voice channel
-/pause - pauses the current song being played or resumes if already paused
-/resume - resumes playing the current song
+Comandos gerais:
+!help - help caralho
+!p <palavra chave> - acha o video com palavra chave
+!q - mostra queue
+!skip - skips caralho
+!clear - para musica
+!leave - ele sai po
+!pause - ele pausa po
+!resume - ele volta a musica
 ```
 """
         self.text_channel_list = []
@@ -27,7 +26,7 @@ General commands:
         for guild in self.bot.guilds:
             print(guild)
             for channel in guild.text_channels:
-                if str(channel).strip() == "teste":
+                if str(channel).strip() == "músicas-e-tabs":
                     print(channel)
                     self.text_channel_list.append(channel)
 

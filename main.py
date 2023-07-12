@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import os
 
+
+
 #import all of the cogs
 from help_cog import help_cog
 from music_cog import music_cog
@@ -17,4 +19,5 @@ bot.add_cog(help_cog(bot))
 bot.add_cog(music_cog(bot))
 
 #start the bot with our token
-bot.run("MTA3NjIxODM4NDUwMjQ5MzI1NA.Gk5VxM.KPvS_ZRG2CuX73G0B-vOTgmcI7Oyn0T2FwPFOA")
+print(os.getenv('TOKEN'))
+bot.run('MTA3NjIxODM4NDUwMjQ5MzI1NA.G4FMwb.tBFCBszXjOwW4xx6MCEwE2vHsrPu6viXqZyj3I')
